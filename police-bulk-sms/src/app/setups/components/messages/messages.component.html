@@ -1,0 +1,67 @@
+<div style="margin: 15px;">
+    <nz-card>
+        <div style="margin-bottom: 20px;">
+            <nz-row style="margin-bottom: 20px;" [nzGutter]="20">
+                <div nz-col [nzSpan]="5">
+                    <nz-input-group [nzSuffix]="suffixIconSearch">
+                        <input type="text" nz-input placeholder="Search message ID" />
+                    </nz-input-group>
+                    <ng-template #suffixIconSearch>
+                        <i nz-icon nzType="search"></i>
+                    </ng-template>
+                </div>
+                <button nz-button nzType="primary" (click)="showAddNewMessageModal()">
+                    Add New Message
+                </button>
+            </nz-row>
+
+            <nz-table [nzSize]="'small'" #messagesTable [nzData]="messages" [nzBordered]="true"
+                style="background-color: white;">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let message of messagesTable.data" style="cursor: pointer;">
+                        <td>{{message.code}}</td>
+                        <td>{{message.message}}</td>
+                    </tr>
+                </tbody>
+            </nz-table>
+        </div>
+    </nz-card>
+</div>
+
+
+
+<nz-modal [(nzVisible)]="isAddMessageModalVisible" nzTitle="Add a new message"
+    (nzOnClose)="isAddMessageModalVisible = false" (nzOnCancel)="closeAddNewMessageModal()" (nzOnOk)="onSubmit()"
+    [nzWidth]="700">
+    <ng-container *nzModalContent>
+        <nz-spin nzTip="Adding Message..." [nzSpinning]="isAddingMessage">
+            <form nz-form [formGroup]="addMessageForm" (ngSubmit)="onSubmit()">
+
+                <div nz-col>
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="6" nzFor="code" nzRequired>ID</nz-form-label>
+                        <nz-form-control nzErrorTip="Please input Message ID!">
+                            <input nz-input formControlName="code" />
+                        </nz-form-control>
+                    </nz-form-item>
+
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="6" nzFor="message" nzRequired>Description</nz-form-label>
+                        <nz-form-control nzErrorTip="Please type in message">
+                            <nz-input-group>
+                                <textarea nz-input placeholder="Type your message here.." [nzAutosize]="{ minRows: 3}"
+                                    formControlName="message"></textarea>
+                            </nz-input-group>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+            </form>
+        </nz-spin>
+    </ng-container>
+</nz-modal>

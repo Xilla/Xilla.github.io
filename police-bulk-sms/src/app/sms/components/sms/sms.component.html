@@ -1,0 +1,107 @@
+<div style="margin: 15px;">
+    <nz-breadcrumb>
+        <!-- <nz-breadcrumb-item>
+            sms
+        </nz-breadcrumb-item> -->
+    </nz-breadcrumb>
+    <div style="margin: 15px;">
+        <div style="margin-bottom: 20px; margin-top: 20px; background: #fff;">
+            <nz-page-header>
+                <nz-page-header-title>New SMS Campaign</nz-page-header-title>
+            </nz-page-header>
+        </div>
+    </div>
+
+    <div nz-col>
+        <div style="margin: 15px;">
+            <nz-card>
+                <div>
+                    <nz-divider nzText="Type of crime" nzOrientation="left"></nz-divider>
+                    <nz-select [(ngModel)]="selectedCrime" style="width: 25%;" nzAllowClear
+                        nzPlaceHolder="Select crime type">
+                        <nz-option *ngFor="let crime of crimes" [nzValue]="crime" [nzLabel]="crime.type">
+                        </nz-option>
+                    </nz-select>
+                </div>
+            </nz-card>
+        </div>
+        <div style="margin: 15px;">
+            <nz-card>
+                <div nz-col>
+                    <nz-divider nzText="Add Recipient" nzOrientation="left"></nz-divider>
+                    <p>Add recipients to move on to the next step</p>
+                    <nz-radio-group [(ngModel)]="recipeintTypeValue" (ngModelChange)="changeContactRecipients()">
+                        <label nz-radio nzValue="all">All contacts ({{listOfContacts.length}})</label>
+                        <label nz-radio nzValue="select">Select contacts</label>
+                    </nz-radio-group>
+                </div>
+
+
+
+                <div *ngIf="recipeintTypeValue == 'select'">
+
+                    <nz-divider></nz-divider>
+
+                    <div>
+                        <nz-select [nzMaxTagCount]="3" [nzMaxTagPlaceholder]="tagPlaceHolder" nzMode="multiple"
+                            (ngModelChange)="addSelectedContacts()" style="width: 100%;"
+                            nzPlaceHolder="Enter contact name to search" [(ngModel)]="listOfSelectedValue">
+                            <nz-option *ngFor="let item of listOfContacts"
+                                [nzLabel]="item.firstName + ' ' + item.lastName" [nzValue]="item">
+                            </nz-option>
+                        </nz-select>
+                        <ng-template #tagPlaceHolder let-selectedList> and {{ selectedList.length }} more selected
+                        </ng-template>
+                    </div>
+                </div>
+            </nz-card>
+        </div>
+
+        <div style="margin: 15px;">
+            <nz-card>
+                <div nz-col>
+                    <nz-divider nzText="Compose message" nzOrientation="left"></nz-divider>
+                    <p><Span>Send a repeat message or compose a new message</Span></p>
+
+                    <nz-radio-group [(ngModel)]="messageTypeValue">
+                        <label nz-radio nzValue="repeat">Repeat message</label>
+                        <label nz-radio nzValue="compose">Compose new message</label>
+                    </nz-radio-group>
+
+                    <div *ngIf="messageTypeValue == 'repeat'" style="margin: 20px;">
+                        <nz-select [(ngModel)]="selectedMessage" style="width: 25%;"
+                            (ngModelChange)="changeRepeatMessage()" nzAllowClear nzPlaceHolder="Select message ID">
+                            <nz-option *ngFor="let message of messages" [nzValue]="message" [nzLabel]="message.code">
+                            </nz-option>
+                        </nz-select>
+
+                        <div style="margin-top: 20px;">
+                            <textarea nz-input [(ngModel)]="repeatMessageDetails"
+                                [nzAutosize]="{ minRows: 3}"></textarea>
+                        </div>
+                    </div>
+
+
+                    <div *ngIf="messageTypeValue == 'compose'" style="margin: 20px;">
+                        <form nz-form>
+                            <nz-form-item>
+                                <nz-form-control nzErrorTip="Please type in your message">
+                                    <nz-input-group>
+                                        <textarea nz-input placeholder="Type your message here.."
+                                            [nzAutosize]="{ minRows: 3}" [(ngModel)]="composedMessage"
+                                            [ngModelOptions]="{standalone: true}"></textarea>
+                                    </nz-input-group>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </form>
+                    </div>
+
+                    <div style="margin: 20px;">
+                        <button nz-button nzType="primary" (click)="sendSMS()">Send SMS</button>
+                    </div>
+
+                </div>
+            </nz-card>
+        </div>
+    </div>
+</div>

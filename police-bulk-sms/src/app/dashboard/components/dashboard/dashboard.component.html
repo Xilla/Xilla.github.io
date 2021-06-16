@@ -1,0 +1,77 @@
+<div style="background: #ececec; padding: 30px;">
+
+    <div nz-row [nzGutter]="12">
+        <div nz-col [nzSpan]="8">
+            <nz-card [nzHoverable]="true">
+                <nz-statistic [nzValue]="contacts.length" [nzTitle]="'Total Contacts'"></nz-statistic>
+            </nz-card>
+        </div>
+
+        <div nz-col [nzSpan]="8">
+            <nz-card [nzHoverable]="true">
+                <nz-statistic [nzValue]="campaigns.length" [nzTitle]="'SMS Campaigns'"></nz-statistic>
+            </nz-card>
+        </div>
+
+        <div nz-col [nzSpan]="8">
+            <nz-card [nzHoverable]="true">
+                <nz-statistic [nzValue]="messages.length" [nzTitle]="'Total SMS'"></nz-statistic>
+            </nz-card>
+        </div>
+    </div>
+
+    <div nz-row [nzGutter]="8" style="padding-top: 10px;">
+        <div nz-col [nzSpan]="8">
+            <nz-card [nzHoverable]="true">
+                <nz-statistic [nzValue]="crimes.length" [nzTitle]="'Crimes Reported'"></nz-statistic>
+            </nz-card>
+        </div>
+        <div nz-col [nzSpan]="8">
+            <nz-card [nzHoverable]="true">
+                <nz-statistic [nzValue]="0" [nzTitle]="'X'"></nz-statistic>
+            </nz-card>
+        </div>
+        <div nz-col [nzSpan]="8">
+            <nz-card [nzHoverable]="true">
+                <nz-statistic [nzValue]="0" [nzTitle]="'X'"></nz-statistic>
+            </nz-card>
+        </div>
+    </div>
+
+    <div style="margin-top: 15px;">
+        <nz-card>
+            <nz-divider nzText="Recent Campaings" nzOrientation="left"></nz-divider>
+            <div style="margin-bottom: 20px;">
+                <nz-row style="margin-bottom: 20px;" [nzGutter]="20">
+                    <div nz-col [nzSpan]="5">
+                        <nz-input-group [nzSuffix]="suffixIconSearch">
+                            <input type="text" nz-input placeholder="Search by ID" />
+                        </nz-input-group>
+                        <ng-template #suffixIconSearch>
+                            <i nz-icon nzType="search"></i>
+                        </ng-template>
+                    </div>
+                </nz-row>
+
+                <nz-table [nzSize]="'small'" #campaignsTable [nzData]="campaigns" [nzBordered]="true"
+                    style="background-color: white;">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Crime Type</th>
+                            <th>No. Messages Sent</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let campaign of campaignsTable.data" style="cursor: pointer;">
+                            <td>{{campaign.id}}</td>
+                            <td>{{campaign.crimeType}}</td>
+                            <td>{{campaign.message}}</td>
+                        </tr>
+                    </tbody>
+                </nz-table>
+            </div>
+        </nz-card>
+    </div>
+
+</div>

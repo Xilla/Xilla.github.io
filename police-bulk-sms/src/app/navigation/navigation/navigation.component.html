@@ -1,0 +1,54 @@
+<nz-layout>
+    <nz-header style="display: flex; justify-content: space-between;">
+        <div class="logo" style="font-size: 18px;">
+            Police Bulk SMS Platform
+        </div>
+        <div style="display: flex;">
+            <div>
+                {{ user.email }}
+                <nz-divider nzType="vertical"></nz-divider>
+            </div>
+
+            <div style="margin-left: 10px; font-size: 18px; cursor: pointer;">
+                <i nz-icon nzType="logout" (click)="logOut()"></i>
+            </div>
+        </div>
+    </nz-header>
+    <nz-layout>
+        <nz-sider [nzTheme]="'light'" [nzWidth]="250">
+            <ul nz-menu nzMode="inline" nzMatchRouter>
+                <li nz-menu-item nzPlacement="right" nzMatchRouter>
+                    <a routerLink="/home/dashboard">
+                        <i nz-icon nzType="dashboard"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li nz-menu-item nzPlacement="right" nzMatchRouter>
+                    <a routerLink="/home/contacts">
+                        <i nz-icon nzType="user"></i>
+                        <span>Contacts</span>
+                    </a>
+                </li>
+                <li nz-menu-item nzPlacement="right" nzMatchRouter>
+                    <a routerLink="/home/sms">
+                        <i nz-icon nzType="mail"></i>
+                        <span>SMS</span>
+                    </a>
+                </li>
+
+                <li nz-menu-item nzPlacement="right" nzMatchRouter>
+                    <a routerLink="/home/settings">
+                        <i nz-icon nzType="setting"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </nz-sider>
+        <nz-layout style="height: 100%;">
+            <nz-content>
+                <router-outlet></router-outlet>
+            </nz-content>
+            <nz-footer></nz-footer>
+        </nz-layout>
+    </nz-layout>
+</nz-layout>

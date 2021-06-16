@@ -1,0 +1,29 @@
+<div style="margin: 0 auto; width: 400px; height: 100%;">
+    <div class="logo" style="text-align: center; margin: 70px auto 0;">
+        <img src="assets/images/ZP_logo.png" height="200" />
+        <h2>Bulk SMS Platform</h2>
+    </div>
+
+    <form nz-form [formGroup]="loginForm" (ngSubmit)="login()">
+        <nz-form-item>
+            <nz-form-control nzErrorTip="Please input your username!">
+                <nz-input-group nzPrefixIcon="user">
+                    <input nz-input placeholder="Username" formControlName="username" />
+                </nz-input-group>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-control nzErrorTip="Please input your Password!">
+                <nz-input-group nzPrefixIcon="lock">
+                    <input nz-input type="password" placeholder="Password" formControlName="password" />
+                </nz-input-group>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-control>
+                <button nz-button nzType="primary" style="width: 100%;">Log in</button>
+            </nz-form-control>
+        </nz-form-item>
+    </form>
+
+</div>

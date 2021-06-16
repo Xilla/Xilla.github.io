@@ -1,0 +1,74 @@
+<div style="margin: 15px;">
+
+    <nz-card>
+        <div style="margin-bottom: 20px;">
+            <nz-row style="margin-bottom: 20px;" [nzGutter]="20">
+                <div nz-col [nzSpan]="5">
+                    <nz-input-group [nzSuffix]="suffixIconSearch">
+                        <input type="text" nz-input placeholder="Search by ID" />
+                    </nz-input-group>
+                    <ng-template #suffixIconSearch>
+                        <i nz-icon nzType="search"></i>
+                    </ng-template>
+                </div>
+
+                <button nz-button nzType="primary" (click)="showAddNewCrimeModal()">
+                    Add New Crime
+                </button>
+            </nz-row>
+
+            <nz-table [nzSize]="'small'" #crimesTable [nzData]="crimes" [nzBordered]="true"
+                style="background-color: white;">
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Type</th>
+                        <th>Short Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let crime of crimesTable.data" style="cursor: pointer;">
+                        <td>{{crime.code}}</td>
+                        <td>{{crime.type}}</td>
+                        <td>{{crime.description}}</td>
+                    </tr>
+                </tbody>
+            </nz-table>
+        </div>
+    </nz-card>
+</div>
+
+
+
+<nz-modal [(nzVisible)]="isAddCrimeModalVisible" nzTitle="Add a new crime" (nzOnClose)="isAddCrimeModalVisible = false"
+    (nzOnCancel)="closeAddNewCrimeModal()" (nzOnOk)="onSubmit()" [nzWidth]="700">
+    <ng-container *nzModalContent>
+        <nz-spin nzTip="Adding Crime..." [nzSpinning]="isAddingCrime">
+            <form nz-form [formGroup]="addCrimeForm" (ngSubmit)="onSubmit()">
+                <div nz-col>
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="6" nzFor="code" nzRequired>ID</nz-form-label>
+                        <nz-form-control nzErrorTip="Please input crime code!">
+                            <input nz-input formControlName="code" />
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="6" nzFor="type" nzRequired>Name</nz-form-label>
+                        <nz-form-control nzErrorTip="Please input crime Name!">
+                            <input nz-input formControlName="type" />
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="6" nzFor="description" nzRequired>Description</nz-form-label>
+                        <nz-form-control nzErrorTip="Please type in crime description">
+                            <nz-input-group>
+                                <textarea nz-input placeholder="Type your description here.."
+                                    [nzAutosize]="{ minRows: 3}" formControlName="description"></textarea>
+                            </nz-input-group>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+            </form>
+        </nz-spin>
+    </ng-container>
+</nz-modal>

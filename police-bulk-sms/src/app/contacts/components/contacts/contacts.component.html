@@ -1,0 +1,121 @@
+<div style="margin: 15px;">
+    <nz-breadcrumb>
+        <nz-breadcrumb-item>
+            Contacts
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item>
+            Contacts List
+        </nz-breadcrumb-item>
+    </nz-breadcrumb>
+    <div>
+        <div style="margin-bottom: 20px; margin-top: 20px; background: #fff;">
+            <nz-page-header>
+                <nz-page-header-title>Contacts</nz-page-header-title>
+                <nz-page-header-extra>
+                    <button nz-button nzType="primary" (click)="showAddNewContactModal()">
+                        Add New Contact
+                    </button>
+                    <button nz-button nzType="primary">
+                        Download Contacts List
+                    </button>
+                </nz-page-header-extra>
+                <nz-page-header-content>
+                    <nz-row [nzGutter]="1">
+                        <nz-col [nzSpan]="6">
+                            <nz-statistic [nzTitle]="'Total Contacts'" [nzValue]="contacts.length"></nz-statistic>
+                        </nz-col>
+                    </nz-row>
+                </nz-page-header-content>
+            </nz-page-header>
+        </div>
+    </div>
+    <nz-card>
+        <div style="margin-bottom: 20px;">
+            <nz-row style="margin-bottom: 20px;" [nzGutter]="20">
+                <div nz-col [nzSpan]="5">
+                    <nz-input-group [nzSuffix]="suffixIconSearch">
+                        <input type="text" nz-input placeholder="Search by Phone, First Name, Last Name" />
+                    </nz-input-group>
+                    <ng-template #suffixIconSearch>
+                        <i nz-icon nzType="search"></i>
+                    </ng-template>
+                </div>
+            </nz-row>
+
+            <nz-table [nzSize]="'small'" #contactsTable [nzData]="contacts" [nzBordered]="true"
+                style="background-color: white;">
+                <thead>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Province</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let contact of contactsTable.data" style="cursor: pointer;">
+                        <td>{{contact.firstName}}</td>
+                        <td>{{contact.lastName}}</td>
+                        <td>{{contact.email ? contact.email : '-'}}</td>
+                        <td>{{contact.phone}}</td>
+                        <td>{{contact.province ? contact.province : '-'}}</td>
+                    </tr>
+                </tbody>
+            </nz-table>
+        </div>
+    </nz-card>
+</div>
+
+
+<!-- Add new contact modal -->
+<nz-modal [(nzVisible)]="isAddContactModalVisible" nzTitle="Add a new contact"
+    (nzOnClose)="isAddContactModalVisible = false" (nzOnCancel)="closeAddNewContactModal()" (nzOnOk)="onSubmit()"
+    [nzWidth]="700">
+    <ng-container *nzModalContent>
+        <nz-spin nzTip="Adding Contact..." [nzSpinning]="isAddingContact">
+            <form nz-form [formGroup]="addContactForm" (ngSubmit)="onSubmit()">
+                <div nz-row [nzGutter]="32">
+                    <div nz-col [nzSpan]="12">
+                        <nz-form-item>
+                            <nz-form-label [nzSpan]="10" nzFor="firstName" nzRequired>First Name</nz-form-label>
+                            <nz-form-control nzErrorTip="Please input your First Name!">
+                                <input nz-input formControlName="firstName" />
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-label [nzSpan]="10" nzFor="lastName" nzRequired>Last Name</nz-form-label>
+                            <nz-form-control nzErrorTip="Please input your Last Name!">
+                                <input nz-input formControlName="lastName" />
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-label [nzSpan]="10" nzFor="province" nzRequired>Province</nz-form-label>
+                            <nz-form-control nzErrorTip="Please select province!">
+                                <nz-select formControlName="province">
+                                    <nz-option *ngFor="let province of provinces" [nzLabel]="province"
+                                        [nzValue]="province"></nz-option>
+                                </nz-select>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="12">
+                        <nz-form-item>
+                            <nz-form-label [nzSpan]="10" nzFor="phone" nzRequired>Phone</nz-form-label>
+                            <nz-form-control nzErrorTip="Please input your Phone number!">
+                                <input nz-input formControlName="phone" />
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-label [nzSpan]="10" nzFor="email">Email</nz-form-label>
+                            <nz-form-control nzErrorTip="Please input your Email!">
+                                <input nz-input formControlName="email" />
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                </div>
+            </form>
+        </nz-spin>
+    </ng-container>
+</nz-modal>

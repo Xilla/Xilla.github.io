@@ -1,0 +1,25 @@
+.header {
+  padding-top: 20px;
+  margin-left: 10px;
+  padding-bottom: 20px;
+  border-right: 1px solid #e8e8e8;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+::ng-deep .ant-layout-header {
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
+  z-index: 999;
+}
+
+/* nz-sider {
+  position: fixed;
+  overflow: auto;
+  height: 100%;
+} */
+
+/* nz-content {
+  margin-left: 30px;
+} */
